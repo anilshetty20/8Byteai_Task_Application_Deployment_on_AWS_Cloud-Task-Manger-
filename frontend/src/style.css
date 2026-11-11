@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
+:root{font-family:'DM Sans',sans-serif;color:#172033;background:#f4f6fb;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0}.shell{max-width:1050px;margin:0 auto;padding:54px 24px}
+header,.list-head{display:flex;align-items:center;justify-content:space-between;gap:20px}
+h1,h2,p{margin-top:0}h1{font:800 38px Manrope,sans-serif;margin-bottom:6px;letter-spacing:-1.5px}
+h2{font:700 19px Manrope,sans-serif;margin-bottom:18px}.eyebrow{font-size:11px;letter-spacing:2px;font-weight:700;color:#64748b;margin-bottom:9px}
+.sub{color:#718096;margin-bottom:0}.api-pill{font-size:12px;color:#087f5b;background:#dff7ed;padding:9px 13px;border-radius:30px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:32px 0}
+.stat,.panel,.task{background:white;border:1px solid #e8ebf2;border-radius:14px}
+.stat{padding:19px}.stat span{display:block;color:#718096;font-size:13px;margin-bottom:12px}.stat strong{font:800 27px Manrope}
+.panel{padding:24px}.create-form{display:grid;grid-template-columns:1.2fr 1.5fr auto;gap:10px}
+input,select{font:inherit;border:1px solid #dce2ec;border-radius:9px;padding:12px;background:#fff;color:#172033;min-width:0}
+button{font:600 14px 'DM Sans';border:0;border-radius:9px;padding:12px 18px;background:#315ee7;color:white;cursor:pointer}
+.list-head{margin:34px 0 16px}.list-head h2{margin-bottom:4px}.list-head select{min-width:145px}
+.tasks{display:grid;gap:10px}.task{display:flex;align-items:center;gap:14px;padding:16px 18px}
+.task-copy{flex:1;min-width:0}.task-copy strong{font-weight:700}.task-copy p{font-size:13px;color:#718096;margin:5px 0 0;overflow-wrap:anywhere}
+.task select{padding:9px;font-size:13px}.delete{background:#fff0f0;color:#c03939;padding:9px 12px}
+.empty{background:#fff;padding:30px;text-align:center;border-radius:12px;color:#718096}.error{color:#c03939}
+footer{text-align:center;color:#94a3b8;font-size:12px;margin-top:38px}
+@media(max-width:700px){.shell{padding:30px 16px}h1{font-size:30px}.stats{grid-template-columns:repeat(2,1fr)}.create-form{grid-template-columns:1fr}.task{flex-wrap:wrap}.task-copy{flex-basis:100%}}

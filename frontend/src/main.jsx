@@ -54,7 +54,7 @@ function App() {
   }
 
   return <main className="shell">
-    <header><div><p className="eyebrow">WORKSPACE</p><h1>Task Manager Dashboard</h1><p className="sub">Plan clearly. Execute consistently.</p></div><span className="api-pill">● API connected</span></header>
+    <header><div><p className="eyebrow">WORKSPACE</p><h1>Task Manager Dashboard.</h1><p className="sub">Plan clearly. Execute consistently.</p></div><span className="api-pill">● API connected</span></header>
     <section className="stats">
       {[["All tasks", stats.total], ["To do", stats.todo], ["In progress", stats.in_progress], ["Completed", stats.done]].map(([label, value]) =>
         <article className="stat" key={label}><span>{label}</span><strong>{value}</strong></article>)}

@@ -102,7 +102,7 @@ jobs:
           cat > docker-compose.prod.yml <<'COMPOSE'
           services:
             backend:
-              image: BACKEND_IMAGE_PLACEHOLDER
+              image: $BACKEND_IMAGE
               container_name: task-manager-backend
               environment:
                 DATABASE_URL: ${DATABASE_URL}
@@ -123,7 +123,7 @@ jobs:
                   awslogs-stream: backend
 
             frontend:
-              image: FRONTEND_IMAGE_PLACEHOLDER
+              image: $FRONTEND_IMAGE
               container_name: task-manager-frontend
               ports:
                 - "80:80"

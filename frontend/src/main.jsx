@@ -69,7 +69,7 @@ function App() {
     </section>
     <section className="list-head"><div><h2>Your tasks</h2><p className="sub">Manage your team's work</p></div>
       <select value={filter} onChange={e => setFilter(e.target.value)}>
-        <option value="all">All statuses</option><option value="todo">To do</option><option value="in_progress">In progress</option><option value="done">Completed</option>
+        <option value="all">All statuses.</option><option value="todo">To do</option><option value="in_progress">In progress</option><option value="done">Completed</option>
       </select>
     </section>
     {error && <p className="error">{error}</p>}

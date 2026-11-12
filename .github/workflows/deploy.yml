@@ -98,13 +98,14 @@ jobs:
           docker pull $BACKEND_IMAGE
           docker pull $FRONTEND_IMAGE
 
+          
           cat > docker-compose.prod.yml <<'COMPOSE'
           services:
             backend:
-              image: $BACKEND_IMAGE
+              image: BACKEND_IMAGE_PLACEHOLDER
               container_name: task-manager-backend
               environment:
-                DATABASE_URL: \${DATABASE_URL}
+                DATABASE_URL: ${DATABASE_URL}
               expose:
                 - "8000"
               restart: unless-stopped
@@ -113,9 +114,16 @@ jobs:
                 interval: 15s
                 timeout: 5s
                 retries: 5
+              logging:
+                driver: awslogs
+                options:
+                  awslogs-region: us-east-1
+                  awslogs-group: /task-manager/backend
+                  awslogs-create-group: "false"
+                  awslogs-stream: backend
 
             frontend:
-              image: $FRONTEND_IMAGE
+              image: FRONTEND_IMAGE_PLACEHOLDER
               container_name: task-manager-frontend
               ports:
                 - "80:80"
@@ -123,6 +131,13 @@ jobs:
                 backend:
                   condition: service_healthy
               restart: unless-stopped
+              logging:
+                driver: awslogs
+                options:
+                  awslogs-region: us-east-1
+                  awslogs-group: /task-manager/frontend
+                  awslogs-create-group: "false"
+                  awslogs-stream: frontend
           COMPOSE
 
           docker compose --env-file .env -f docker-compose.prod.yml up -d --remove-orphans

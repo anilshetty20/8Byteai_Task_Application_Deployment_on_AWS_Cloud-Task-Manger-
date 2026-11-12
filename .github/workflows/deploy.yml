@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: ${{ vars.AWS_REGION }}
 
 jobs:
 
@@ -29,7 +29,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
-          aws-region: us-east-1
+          aws-region: ${{ vars.AWS_REGION }}
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -73,19 +73,19 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
-          aws-region: us-east-1
+          aws-region: ${{ vars.AWS_REGION }}
 
       - name: Deploy using AWS Systems Manager
         env:
           EC2_INSTANCE_ID: ${{ vars.EC2_INSTANCE_ID }}
-          AWS_REGION: us-east-1
+          AWS_REGION: ${{ vars.AWS_REGION }}
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           BACKEND_REPOSITORY: ${{ vars.ECR_BACKEND_REPOSITORY }}
           FRONTEND_REPOSITORY: ${{ vars.ECR_FRONTEND_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          BACKEND_IMAGE="$AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$BACKEND_REPOSITORY:$IMAGE_TAG"
-          FRONTEND_IMAGE="$AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$FRONTEND_REPOSITORY:$IMAGE_TAG"
+          BACKEND_IMAGE="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$BACKEND_REPOSITORY:$IMAGE_TAG"
+          FRONTEND_IMAGE="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$FRONTEND_REPOSITORY:$IMAGE_TAG"
 
           COMMANDS=$(cat <<EOF
           #!/bin/bash
@@ -93,7 +93,7 @@ jobs:
 
           cd /opt/task-manager
 
-          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
 
           docker pull $BACKEND_IMAGE
           docker pull $FRONTEND_IMAGE

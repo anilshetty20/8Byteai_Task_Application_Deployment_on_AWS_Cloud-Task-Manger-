@@ -1,7 +1,7 @@
 
 services:
   backend:
-    build: ./backend
+    image: 195202617254.dkr.ecr.us-east-1.amazonaws.com/task-manager-backend:2f4cba42545e060263786f148ccfed74fdd59f31
     container_name: task-manager-backend
     environment:
       DATABASE_URL: ${DATABASE_URL}
@@ -9,20 +9,20 @@ services:
       - "8000"
     restart: unless-stopped
     healthcheck:
-      test:
-        - CMD
-        - python
-        - -c
-        - "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 15s
       timeout: 5s
       retries: 5
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-group: /task-manager/backend
+        awslogs-create-group: "false"
+        awslogs-stream: backend
 
   frontend:
-    build:
-      context: ./frontend
-      args:
-        VITE_API_URL: ""
+    image: 195202617254.dkr.ecr.us-east-1.amazonaws.com/task-manager-frontend:2f4cba42545e060263786f148ccfed74fdd59f31
     container_name: task-manager-frontend
     ports:
       - "80:80"
@@ -30,3 +30,10 @@ services:
       backend:
         condition: service_healthy
     restart: unless-stopped
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-group: /task-manager/frontend
+        awslogs-create-group: "false"
+        awslogs-stream: frontend
